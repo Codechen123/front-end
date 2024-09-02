@@ -1,17 +1,18 @@
 <template>
   <div class="box1">
-    <p>&copy; 2023 Your Company Name. All Rights Reserved.
+    <p>&copy; 2024 东南大学软件学院项目实训
     </p>
-    <p style="font-size:10px">备案号：XXX123456789号 |
-      <a href="https://www.example.com" target="_blank">公司信息</a>
+    <p style="font-size:10px">
+      <a href="https://cose.seu.edu.cn/main.htm" target="_blank">学院信息</a>
       |
-      <a href="https://www.example.com/contact" target="_blank">联系我们</a>
+      <a href="https://github.com/Codechen123/front-end" target="_blank">GitHub</a>
     </p>
   </div>
 </template>
 <style scoped>
 .box1 {
   text-align: center;
+  height: 150px;
 }
 
 a {

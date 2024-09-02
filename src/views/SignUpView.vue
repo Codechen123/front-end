@@ -12,9 +12,9 @@
                     placeholder="手机号码"></el-input>
                 <el-input class="input1" v-model="username" style="max-width: 600px" placeholder="用户名"></el-input>
                 <el-input class="input1" v-model="password" style="max-width: 600px" placeholder="密码" type="password"
-                    required></el-input>
+                    clearable required></el-input>
                 <el-input class="input1" v-model="confirmPassword" style="max-width: 600px" placeholder="确认密码"
-                    type="password" required></el-input>
+                    type="password" clearable required></el-input>
                 <el-button style="max-width: 600px" class="submit" type="primary" @click="register">注册</el-button>
                 <el-link href="/login" class="login">登录</el-link>
             </div>
@@ -114,11 +114,11 @@ export default defineComponent({
     width: 50%;
     background-color: #f4f4f4;
     padding: 20px;
-    background-image: url(../assets/bg.jpg);
+    background-image: url(../assets/sport.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: white;
+    color: black;
     text-align: center;
 }
 

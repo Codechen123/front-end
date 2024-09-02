@@ -78,14 +78,15 @@ const formRef = ref<any>(null);
 // 在页面加载时自动获取用户信息
 onMounted(async () => {
     try {
-        // await authStore.fetchUser();
-        user.value = {
-            username: '测试用户',
-            age: 30,
-            height: 175,
-            weight: 70,
-            gender: '0', // 默认性别（用字符串）
-        };
+        await authStore.fetchUser();
+        // user.value = {
+        //     username: '测试用户',
+        //     age: 30,
+        //     height: 175,
+        //     weight: 70,
+        //     gender: '0', // 默认性别（用字符串）
+        // };
+        user.value = authStore.user;
     } catch (error) {
         console.error('加载用户信息失败', error);
     }

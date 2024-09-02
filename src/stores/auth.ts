@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('auth', () => {
           Authorization: `Bearer ${token.value}`,
         },
       });
-      user.value = response.data;
+      user.value = response.data.data;
     } catch (error) {
       console.error('获取用户信息失败', error);
       logout();

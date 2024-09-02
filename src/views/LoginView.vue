@@ -12,7 +12,7 @@
       <div class="form-container">
         <el-input class="input1" v-model="userPhoneNumber" style="max-width: 600px" placeholder="手机号"></el-input>
         <el-input class="input1" v-model="password" style="max-width: 600px" placeholder="密码" type="password"
-          required></el-input>
+          show-password required></el-input>
 
         <el-button style="max-width: 600px" class="input1" type="primary" @click="handleLogin">登录</el-button>
         <br />
@@ -52,8 +52,8 @@ const handleLogin = async () => {
   display: flex;
   justify-content: space-between;
 
-  max-width: 800px;
-  height: 400px;
+  max-width: 900px;
+  height: 450px;
   margin: 100px auto;
   border: 1px solid #ccc;
   background: orange;
@@ -61,14 +61,13 @@ const handleLogin = async () => {
 
 .login-container .left-side {
   width: 50%;
-  background-color: #f4f4f4;
   padding: 20px;
-  background-image: url(../assets/bg.jpg);
+  background-image: url(../assets/sport.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
-  color: white;
+  color: black;
   text-align: center;
 }
 
