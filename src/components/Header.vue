@@ -39,7 +39,7 @@ const routeMap: { [key: string]: string } = {
     '/static': '1',
     '/exercise': '2',
     '/yoga': '3',
-    '/user/info': '4-1',
+    '/user/profile': '4-1',
     '/user/report': '4-2'
 };
 
@@ -67,7 +67,7 @@ const handleSelect = (key: string) => {
             router.push('/yoga');
             break;
         case '4-1':
-            router.push('/user/info');
+            router.push('/user/profile');
             break;
         case '4-2':
             router.push('/user/report');

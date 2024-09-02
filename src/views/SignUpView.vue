@@ -12,12 +12,11 @@
                     placeholder="手机号码"></el-input>
                 <el-input class="input1" v-model="username" style="max-width: 600px" placeholder="用户名"></el-input>
                 <el-input class="input1" v-model="password" style="max-width: 600px" placeholder="密码" type="password"
-                    required>
-                </el-input>
+                    required></el-input>
                 <el-input class="input1" v-model="confirmPassword" style="max-width: 600px" placeholder="确认密码"
-                    type="password" required>
-                </el-input>
-                <el-button style="max-width: 600px" class="input1" type="primary" @click="register">注册</el-button>
+                    type="password" required></el-input>
+                <el-button style="max-width: 600px" class="submit" type="primary" @click="register">注册</el-button>
+                <el-link href="/login" class="login">登录</el-link>
             </div>
         </div>
     </div>
@@ -41,6 +40,27 @@ export default defineComponent({
         const register = async () => {
             if (!username.value || !userPhoneNumber.value || !password.value || !confirmPassword.value) {
                 ElMessage.error('所有字段都是必填项');
+                return;
+            }
+
+            // 验证手机号码是否为11位数字
+            const phoneRegex = /^[0-9]{11}$/;
+            if (!phoneRegex.test(userPhoneNumber.value)) {
+                ElMessage.error('手机号码必须为11位数字');
+                return;
+            }
+
+            // 验证用户名不包含符号
+            const usernameRegex = /^[a-zA-Z0-9\u4e00-\u9fa5]+$/;
+            if (!usernameRegex.test(username.value)) {
+                ElMessage.error('用户名不能包含符号');
+                return;
+            }
+
+            // 验证密码不含空白字符
+            const passwordRegex = /^\S+$/;
+            if (!passwordRegex.test(password.value)) {
+                ElMessage.error('密码不能包含空白字符');
                 return;
             }
 
@@ -113,6 +133,15 @@ export default defineComponent({
 .input1 {
     margin: 20px 0;
     width: 300px;
+}
+
+.submit {
+    margin: 10px 0;
+    width: 250px;
+}
+
+.login {
+    margin-left: 20px;
 }
 
 h2 {
