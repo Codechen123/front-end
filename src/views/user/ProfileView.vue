@@ -79,16 +79,11 @@ const formRef = ref<any>(null);
 onMounted(async () => {
     try {
         await authStore.fetchUser();
-        // user.value = {
-        //     username: '测试用户',
-        //     age: 30,
-        //     height: 175,
-        //     weight: 70,
-        //     gender: '0', // 默认性别（用字符串）
-        // };
         user.value = authStore.user;
     } catch (error) {
         console.error('加载用户信息失败', error);
+        ElMessage.error('加载信息失败，请重新登录');
+        authStore.logout();
     }
 });
 
@@ -105,7 +100,6 @@ const saveChanges = async () => {
                 await authStore.updateUser(user.value);
                 isEditing.value = false;
                 ElMessage.success('修改成功');
-                console.log(user.value);
             } catch (error) {
                 ElMessage.error('修改失败');
             }
@@ -116,17 +110,17 @@ const saveChanges = async () => {
 };
 
 // 取消编辑
-const cancelEdit = () => {
-    // 取消编辑，重置数据
-    isEditing.value = false;
+const cancelEdit = async () => {
     // 重新获取或重置用户数据
-    user.value = {
-        username: '测试用户',
-        age: 30,
-        height: 175,
-        weight: 70,
-        gender: '0', // 默认性别（用字符串）
-    };
+    try {
+        await authStore.fetchUser();
+        user.value = authStore.user;
+        isEditing.value = false;
+    } catch (error) {
+        console.error('加载用户信息失败', error);
+        ElMessage.error('加载信息失败，请重新登录');
+        authStore.logout();
+    }
 };
 
 </script>

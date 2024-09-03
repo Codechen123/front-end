@@ -26,8 +26,8 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const response = await axios.post(`${API_BASE_URL}/start/login`, { userPhoneNumber, password });
       if (response.data.code === 0) {
-        // setToken(response.data.token);
-        // await fetchUser();
+        setToken(response.data.token);
+        await fetchUser();
         router.push('/home');
       } else {
         throw new Error(response.data.message || '登录失败');
@@ -47,7 +47,11 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Fetch user function
   const fetchUser = async () => {
-    if (!token.value) return;
+    if (!token.value) {
+      console.log('没有token');
+      throw new Error('没有登录');
+    }
+      
     try {
       const response = await axios.get(`${API_BASE_URL}/api/user`, {
         headers: {
@@ -63,7 +67,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Update user function
   const updateUser = async (updatedUserData: any) => {
-    if (!token.value) return;
+    if (!token.value) {
+      console.log('没有token');
+      throw new Error('没有登录');
+    }
     try {
       const response = await axios.put(`${API_BASE_URL}/api/user`, updatedUserData, {
         headers: {
