@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus';
 
 // API base URL
 const API_BASE_URL = 'http://192.168.69.10:5000';
@@ -53,12 +54,19 @@ export const useAuthStore = defineStore('auth', () => {
     }
       
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/user`, {
+      const response = await axios.get(`${API_BASE_URL}/user/verify`, {
         headers: {
           Authorization: `Bearer ${token.value}`,
         },
       });
-      user.value = response.data.data;
+
+      const userData = response.data.data;
+      if (userData.userGender !== undefined) {
+        userData.userGender = userData.userGender === 0 ? '0' : '1';
+      }
+      user.value = userData;
+      console.log(user.value);
+      
     } catch (error) {
       console.error('获取用户信息失败', error);
       logout();
@@ -72,14 +80,14 @@ export const useAuthStore = defineStore('auth', () => {
       throw new Error('没有登录');
     }
     try {
-      const response = await axios.put(`${API_BASE_URL}/api/user`, updatedUserData, {
+      const response = await axios.post(`${API_BASE_URL}/user/modify`, updatedUserData, {
         headers: {
           Authorization: `Bearer ${token.value}`,
           'Content-Type': 'application/json',
         },
       });
       if (response.data.code === 0) {
-        user.value = response.data.user; // 更新本地用户信息
+        ElMessage.success('修改成功');
       } else {
         throw new Error(response.data.message || '更新失败');
       }

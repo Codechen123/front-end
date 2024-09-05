@@ -8,7 +8,7 @@
             静态评估
         </el-menu-item>
         <el-menu-item index="2">
-            运动评估
+            动态评估
         </el-menu-item>
         <el-menu-item index="3">
             瑜伽评估

@@ -74,7 +74,7 @@ const report = ref({
 const fetchTableData = async (page = 1) => {
     if (!authStore.token) return;
     try {
-        const response = await axios.get('/api/user/reports', {
+        const response = await axios.post('/api/user/reports', {
             headers: {
                 Authorization: `Bearer ${authStore.token.value}`,
             },
