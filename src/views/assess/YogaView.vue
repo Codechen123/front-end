@@ -5,10 +5,14 @@
                 <Header />
             </el-header>
             <el-main>
+                <h1>实时评估</h1>
                 <div class="video-container">
-                    <video ref="video" width="640" height="480" autoplay></video>
-                    <button @click="startVideo">Start Camera</button>
-                    <button @click="stopVideo">Stop Camera</button>
+                    <video ref="video" height="500" autoplay></video>
+                </div>
+
+                <div class="btnBox">
+                    <el-button type="primary" round @click="startVideo">开启摄像头</el-button>
+                    <el-button type="success" round @click="stopVideo">关闭摄像头</el-button>
                 </div>
             </el-main>
             <el-footer>
@@ -45,15 +49,16 @@ const startVideo = async () => {
 
 // 关闭视频流
 const stopVideo = () => {
+    // 停止定时捕获帧
+    stopSendingFrames()
+
     if (stream.value) {
         stream.value.getTracks().forEach(track => track.stop())
         video.value!.srcObject = null
         stream.value = null
     }
-
-    // 停止定时捕获帧
-    stopSendingFrames()
 }
+
 
 // 启动定时捕获帧
 const startSendingFrames = () => {
@@ -101,15 +106,29 @@ const stopSendingFrames = () => {
 // 在组件卸载时停止视频流和定时器
 onUnmounted(() => {
     stopVideo()
-    stopSendingFrames()
 })
 </script>
 
 <style scoped>
+h1 {
+    margin-left: 60px;
+}
+
 .video-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    margin: 20px auto;
+}
+
+.btnBox {
+    display: flex;
+    justify-content: center;
 }
 
 button {

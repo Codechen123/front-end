@@ -53,7 +53,7 @@ import { ElMessage } from 'element-plus';
 
 // 使用 ref 创建状态变量
 const authStore = useAuthStore();
-const isEditing = ref(true);
+const isEditing = ref(false);
 
 const user = ref({
     userID: 0,
@@ -71,7 +71,9 @@ const rules = {
         { required: true, message: '用户名不能为空', trigger: 'blur' },
         { pattern: /^[^\s!@#$%^&*()_+=[\]{};':"\\|,.<>/?]*$/, message: '用户名不能包含空白字符或特殊符号', trigger: 'blur' }
     ],
-
+    phoneNumber: [
+        { required: true, message: '电话号码不能为空', trigger: 'blur' },
+    ],
 };
 
 // 获取表单引用

@@ -114,7 +114,7 @@ export default defineComponent({
     width: 50%;
     background-color: #f4f4f4;
     padding: 20px;
-    background-image: url(../assets/sport.jpg);
+    background-image: url(../assets/bg.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -82,6 +82,10 @@ const uploadVideo = async () => {
 </script>
 
 <style scoped>
+#box1 {
+    min-height: 400px;
+}
+
 /* 主容器样式 */
 .upload-card {
     background-color: #f9f9f9;
