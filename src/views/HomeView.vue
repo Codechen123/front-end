@@ -5,33 +5,32 @@
                 <Header />
             </el-header>
             <el-main>
-                <div class="main">
-                    <h1>欢迎使用运动姿态评估系统</h1>
-                    <p>
-                        在当今数字化时代，人体关键点识别技术正成为各行业关注的焦点，为体育健身领域带来了前所未有的革新。我们的项目旨在利用先进的人体关键点识别技术，从静态体态检测到健身动作检测再到数据可视化报告，为用户提供全方位、精准的服务。
-                    </p>
-                    <p>
-                        通过我们的系统，您可以获得专业的姿态分析、实时的健身动作评估以及个性化的健康报告。无论您是职业运动员、健身教练还是健康爱好者，我们都能帮助您优化训练效果，实现健康目标。
-                    </p>
-                    <h3>1. 智能姿态评估</h3>
-                    <p>利用先进的计算机视觉和人工智能技术，我们的系统能够实时分析你的运动姿态。上传你的运动视频或使用我们的实时分析工具，立即获得详细的姿态评估报告。</p>
-                    <h3>2. 个性化改进建议</h3>
 
-                    <p>根据你的姿态分析结果，我们提供针对性的改进建议。无论是跑步、举重还是瑜伽，我们都有专业的运动员和教练为你量身定制的练习方案，帮助你改进姿势，提升运动效果。
-                    </p>
-                    <h3>3. 动作库与教程</h3>
+                <header>
+                    <div class="container">
+                        <h1>运动姿态评估系统</h1>
+                        <p>提升运动表现，优化训练效果</p>
+                    </div>
+                </header>
 
-                    <p>访问我们的动作库，获取详细的运动姿态指导和示范视频。学习如何正确执行各种运动动作，避免常见错误，提高训练效果。
-                    </p>
-                    <h3>4. 实时反馈与追踪</h3>
-
-                    <p>通过我们的移动应用，你可以随时随地上传新的运动视频，获取实时反馈。追踪你的进步记录，观察姿态改进的效果，为你的运动目标加油助力。
-                    </p>
-                    <h3>5. 专业咨询服务</h3>
-
-                    <p>有任何疑问或需要深入分析？我们的专业团队随时为你提供一对一的咨询服务。无论是姿态问题还是运动计划，我们都将为你提供权威解答和专业指导。
-                    </p>
+                <div class="container main-content">
+                    <div class="card">
+                        <h2>静态评估</h2>
+                        <img src="@/assets/static-assessment.jpg" alt="静态评估">
+                        <p>通过上传图片，快速获取运动姿态的详细分析。系统将根据您的图片提供精确的静态姿态反馈。</p>
+                    </div>
+                    <div class="card">
+                        <h2>动态评估</h2>
+                        <img src="@/assets/dynamic-assessment.jpg" alt="动态评估">
+                        <p>上传视频，系统将分析您的动态运动过程，并提供实时的改进建议，帮助您更好地调整训练方式。</p>
+                    </div>
+                    <div class="card">
+                        <h2>实时评估</h2>
+                        <img src="@/assets/real-time-assessment.jpg" alt="实时评估">
+                        <p>开启摄像头，立刻进行实时姿态评估。系统将立即分析您的运动效果，让您迅速获得反馈。</p>
+                    </div>
                 </div>
+
             </el-main>
             <el-footer>
                 <Footer />
@@ -48,7 +47,67 @@ import Footer from '../components/Footer.vue'
 </script>
 
 <style scoped>
-.main {
-    margin: 50px 200px;
+h2 {
+    text-align: center;
+}
+
+.el-main {
+    padding: 0;
+    min-height: 80vh;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #303846;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.main-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.card {
+    background: #fff;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 300px;
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.el-footer {
+    padding: 0;
 }
 </style>

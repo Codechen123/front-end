@@ -172,4 +172,8 @@ h1 {
     color: red;
     margin-top: 10px;
 }
+
+.el-footer {
+    padding: 0;
+}
 </style>

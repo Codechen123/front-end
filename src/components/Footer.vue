@@ -1,7 +1,6 @@
 <template>
   <div class="box1">
-    <p>&copy; 2024 东南大学软件学院项目实训
-    </p>
+    <p>&copy; 2024 运动姿态评估系统. All rights reserved.</p>
     <p style="font-size:10px">
       <a href="https://cose.seu.edu.cn/main.htm" target="_blank">学院信息</a>
       |
@@ -23,5 +22,14 @@ a {
 a:hover {
   color: #333;
   text-decoration: underline;
+}
+
+.box1 {
+  background: #303846;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  bottom: 0;
+  width: 100%;
 }
 </style>
