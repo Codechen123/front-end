@@ -108,6 +108,7 @@ header {
 }
 
 .el-footer {
+    margin-top: 50px;
     padding: 0;
 }
 </style>

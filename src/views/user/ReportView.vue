@@ -151,6 +151,10 @@ body {
     background: linear-gradient(to top left, #28b487, #7dd56f);
 }
 
+.el-main {
+    min-height: 80vh;
+}
+
 .show-modal {
     font-size: 2rem;
     font-weight: 600;

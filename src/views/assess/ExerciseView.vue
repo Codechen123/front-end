@@ -31,9 +31,13 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import axios from 'axios'
+import axios from '@/stores/axios'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import { useAuthStore } from '@/stores/auth'
+import { ElMessage } from 'element-plus'
+
+const authStore = useAuthStore();
 
 const videoUrl = ref<string | null>(null)
 const uploadedVideoUrl = ref<string | null>(null)
@@ -61,20 +65,24 @@ const uploadVideo = async () => {
     if (!selectedFile.value) return
 
     const formData = new FormData()
-    formData.append('file', selectedFile.value)
-
-    uploadedVideoUrl.value = 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+    formData.append('video', selectedFile.value)
+    formData.append('userID', authStore.user.userID)
 
     try {
+        ElMessage.warning('正在评估，清稍等');
         // 上传视频到服务器
-        const response = await axios.post('/api/upload', formData, {
+        const response = await axios.post('/report/fitness', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
-
+        const baseUrl = 'http://192.168.69.10:5000';
         // 假设服务器返回视频的 URL
-        uploadedVideoUrl.value = response.data.url
+        uploadedVideoUrl.value = baseUrl + response.data.url
+        console.log(response.data);
+
+        console.log(uploadedVideoUrl.value);
+
     } catch (error) {
         errorMessage.value = '上传视频失败，请重试。'
     }

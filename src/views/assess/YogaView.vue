@@ -33,6 +33,9 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
 import { io } from 'socket.io-client';
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore();
 
 const videoElement = ref<HTMLVideoElement | null>(null);
 const canvasElement = ref<HTMLCanvasElement | null>(null);

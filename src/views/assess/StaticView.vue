@@ -6,16 +6,22 @@
             </el-header>
             <el-main>
                 <h1>静态图片评估</h1>
+                <p>请上传正面和侧面两张照片</p>
                 <div class="upload-card">
                     <div id="box1" class="preview-container">
-                        <img v-if="imageUrl" :src="imageUrl" alt="图片预览" class="preview-image" />
-                        <img v-if="uploadedImageUrl" :src="uploadedImageUrl" alt="上传后的图片" class="preview-image" />
+                        <img v-for="(url, index) in imageUrls" :key="index" :src="url" alt="图片预览"
+                            class="preview-image" />
+                        <img v-for="(url, index) in uploadedImageUrls" :key="'uploaded-' + index" :src="url"
+                            alt="上传后的图片" class="preview-image" />
                     </div>
                     <div id="box2" class="upload-controls">
-                        <input type="file" accept="image/png, image/jpeg" @change="handleFileChange" id="fileInput" />
+                        <input type="file" accept="image/png, image/jpeg" @change="handleFileChange" id="fileInput"
+                            multiple />
                         <label for="fileInput" class="file-label">选择图片</label>
-                        <span v-if="selectedFile" class="file-name">{{ selectedFile.name }}</span>
-                        <button @click="uploadImage" :disabled="!selectedFile" class="upload-button">提交</button>
+                        <span v-if="selectedFiles.length" class="file-name">{{ selectedFiles.map(file =>
+                            file.name).join(', ') }}</span>
+                        <button @click="uploadImages" :disabled="selectedFiles.length !== 2"
+                            class="upload-button">提交</button>
                         <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
                     </div>
                 </div>
@@ -29,50 +35,69 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import axios from 'axios'
+import axios from '@/stores/axios'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import { useAuthStore } from '@/stores/auth'
+import { ElMessage } from 'element-plus'
 
-const imageUrl = ref<string | null>(null)
-const uploadedImageUrl = ref<string | null>(null)
+const imageUrls = ref<string[]>([])
+const uploadedImageUrls = ref<string[]>([])
 const errorMessage = ref<string | null>(null)
-const selectedFile = ref<File | null>(null)
+const selectedFiles = ref<File[]>([])
+const authStore = useAuthStore();
 
 const handleFileChange = (event: Event) => {
     const fileInput = event.target as HTMLInputElement
-    const file = fileInput.files?.[0]
-    if (file) {
-        // 检查文件类型
-        if (file.type === 'image/png' || file.type === 'image/jpeg') {
-            imageUrl.value = URL.createObjectURL(file)
-            selectedFile.value = file
-            errorMessage.value = null // 清除错误信息
-        } else {
-            errorMessage.value = '只能上传 PNG 或 JPG 格式的图片。'
-            imageUrl.value = null // 清除之前的预览图片
-            selectedFile.value = null
+    const files = fileInput.files
+    if (files) {
+        // 清除之前的数据
+        imageUrls.value = []
+        selectedFiles.value = []
+        errorMessage.value = null
+
+        if (files.length > 2) {
+            errorMessage.value = '一次只能上传两张图片。'
+            return
         }
+
+        Array.from(files).forEach(file => {
+            if (file.type === 'image/png' || file.type === 'image/jpeg') {
+                imageUrls.value.push(URL.createObjectURL(file))
+                selectedFiles.value.push(file)
+            } else {
+                errorMessage.value = '只能上传 PNG 或 JPG 格式的图片。'
+            }
+        })
     }
 }
 
-const uploadImage = async () => {
-    if (!selectedFile.value) return
+const uploadImages = async () => {
+    if (selectedFiles.value.length !== 2) {
+        errorMessage.value = '必须选择两张图片进行上传。'
+        return
+    }
 
     const formData = new FormData()
-    formData.append('file', selectedFile.value)
+    formData.append('file1', selectedFiles.value[0])
+    formData.append('file2', selectedFiles.value[1])
+    formData.append('userID', authStore.user.userID)
 
-    uploadedImageUrl.value = 'https://pic3.zhimg.com/v2-5fb13110e1de13d4c11e6e7f5b8026da_r.jpg'
 
     try {
         // 上传图片到服务器
-        const response = await axios.post('/api/upload', formData, {
+        ElMessage.warning('正在评估，清稍等');
+        const response = await axios.post('/report/shape', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
 
-        // 假设服务器返回图片的 URL
-        uploadedImageUrl.value = response.data.url
+        const baseUrl = 'http://192.168.69.10:5000';
+
+        // 假设response.data.urls是一个包含URLs的数组
+        uploadedImageUrls.value = response.data.urls.map(url => baseUrl + url);
+
     } catch (error) {
         errorMessage.value = '上传图片失败，请重试。'
     }
@@ -95,8 +120,9 @@ const uploadImage = async () => {
     text-align: center;
 }
 
-h1 {
-    margin-left: 60px;
+h1,
+p {
+    margin-left: 70px;
 }
 
 /* 预览图片样式 */

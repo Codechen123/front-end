@@ -5,6 +5,7 @@
                 <Header />
             </el-header>
             <el-main>
+                <h1>个人资料</h1>
                 <el-form :model="user" :rules="rules" ref="formRef" label-width="100px" class="user-info-form">
                     <el-form-item label="用户名" prop="username">
                         <el-input v-model="user.username" :disabled="!isEditing"></el-input>
@@ -71,9 +72,6 @@ const rules = {
         { required: true, message: '用户名不能为空', trigger: 'blur' },
         { pattern: /^[^\s!@#$%^&*()_+=[\]{};':"\\|,.<>/?]*$/, message: '用户名不能包含空白字符或特殊符号', trigger: 'blur' }
     ],
-    phoneNumber: [
-        { required: true, message: '电话号码不能为空', trigger: 'blur' },
-    ],
 };
 
 // 获取表单引用
@@ -125,8 +123,20 @@ const cancelEdit = async () => {
 </script>
 
 <style scoped>
+h1 {
+    margin-left: 70px;
+}
+
+.el-main {
+    min-height: 80vh;
+}
+
 .user-info-form {
     max-width: 400px;
     margin: 20px auto;
+}
+
+.el-footer {
+    padding: 0;
 }
 </style>
