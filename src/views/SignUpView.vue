@@ -114,11 +114,11 @@ export default defineComponent({
     width: 50%;
     background-color: #f4f4f4;
     padding: 20px;
-    background-image: url(../assets/bg.jpg);
+    background-image: url(../assets/bg2.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: black;
+    color: white;
     text-align: center;
 }
 

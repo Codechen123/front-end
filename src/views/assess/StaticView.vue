@@ -131,7 +131,8 @@ p {
 }
 
 .preview-image {
-    max-width: 42%;
+    max-width: 43%;
+    max-height: 430px;
     height: auto;
     border-radius: 8px;
     border: 1px solid #ddd;

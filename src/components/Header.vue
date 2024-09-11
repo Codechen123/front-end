@@ -11,13 +11,16 @@
             动态评估
         </el-menu-item>
         <el-menu-item index="3">
+            瑜伽评估
+        </el-menu-item>
+        <el-menu-item index="4">
             实时评估
         </el-menu-item>
-        <el-sub-menu index="4">
+        <el-sub-menu index="5">
             <template #title> 个人中心 </template>
-            <el-menu-item index="4-1">个人信息</el-menu-item>
-            <el-menu-item index="4-2">历史报告</el-menu-item>
-            <el-menu-item index="4-3">退出登录</el-menu-item>
+            <el-menu-item index="5-1">个人信息</el-menu-item>
+            <el-menu-item index="5-2">历史报告</el-menu-item>
+            <el-menu-item index="5-3">退出登录</el-menu-item>
         </el-sub-menu>
     </el-menu>
 </template>
@@ -39,8 +42,9 @@ const routeMap: { [key: string]: string } = {
     '/static': '1',
     '/exercise': '2',
     '/yoga': '3',
-    '/user/profile': '4-1',
-    '/user/report': '4-2'
+    '/fitness': '4',
+    '/user/profile': '5-1',
+    '/user/report': '5-2'
 };
 
 // Watch for route changes to update the activeIndex
@@ -66,13 +70,16 @@ const handleSelect = (key: string) => {
         case '3':
             router.push('/yoga');
             break;
-        case '4-1':
+        case '4':
+            router.push('/fitness');
+            break;
+        case '5-1':
             router.push('/user/profile');
             break;
-        case '4-2':
+        case '5-2':
             router.push('/user/report');
             break;
-        case '4-3':
+        case '5-3':
             authStore.logout();
         default:
             console.log('Unknown menu item');

@@ -115,7 +115,8 @@ h1 {
 }
 
 .preview-video {
-    max-width: 45%;
+    max-width: 43%;
+    max-height: 460px;
     height: auto;
     border-radius: 8px;
     border: 1px solid #ddd;

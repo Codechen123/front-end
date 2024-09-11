@@ -126,7 +126,7 @@ const captureFrame = () => {
             canvasElement.value.toBlob((blob) => {
                 if (blob) {
                     blob.arrayBuffer().then(buffer => {
-                        socket.emit('yoga', buffer);  // 发送图像数据
+                        socket.emit('fitness', buffer);  // 发送图像数据
                     });
                 }
             }, "image/jpeg");

@@ -62,12 +62,12 @@ const handleLogin = async () => {
 .login-container .left-side {
   width: 50%;
   padding: 20px;
-  background-image: url(../assets/bg.jpg);
+  background-image: url(../assets/bg2.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
-  color: black;
+  color: white;
   text-align: center;
 }
 
