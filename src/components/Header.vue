@@ -11,7 +11,7 @@
             动态评估
         </el-menu-item>
         <el-menu-item index="3">
-            瑜伽评估
+            实时评估
         </el-menu-item>
         <el-sub-menu index="4">
             <template #title> 个人中心 </template>

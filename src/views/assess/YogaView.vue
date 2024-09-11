@@ -8,7 +8,7 @@
                 <h1>实时评估</h1>
                 <div class="video-container">
                     <div id="box1">
-                        <video ref="videoElement" autoplay class="preview-video" style="display: none;">
+                        <video ref="videoElement" autoplay class="preview-video">
                         </video>
                         <img ref="outputElement" v-if="isCameraOn" class="preview-video" />
                         <canvas ref="canvasElement" style="display: none;"></canvas>
@@ -48,7 +48,7 @@ const isCameraOn = ref(false);
 
 onMounted(() => {
     // 创建 Socket.IO 连接
-    socket = io('http://localhost:5000');
+    socket = io('http://192.168.69.10:5000');
 
     socket.on('connect', () => {
         console.log('Socket.IO connection opened');
@@ -60,6 +60,8 @@ onMounted(() => {
 
     // 接收处理后的图像
     socket.on('response', (data: ArrayBuffer) => {
+        console.log('response');
+
         if (outputElement.value) {
             const blob = new Blob([data], { type: 'image/jpeg' });
             outputElement.value.src = URL.createObjectURL(blob);
@@ -124,7 +126,7 @@ const captureFrame = () => {
             canvasElement.value.toBlob((blob) => {
                 if (blob) {
                     blob.arrayBuffer().then(buffer => {
-                        socket.emit('stream', buffer);  // 发送图像数据
+                        socket.emit('fitness', buffer);  // 发送图像数据
                     });
                 }
             }, "image/jpeg");
