@@ -5,7 +5,7 @@
                 <Header />
             </el-header>
             <el-main>
-                <h1>实时评估</h1>
+                <h1>瑜伽评估</h1>
                 <div class="video-container">
                     <div id="box1">
                         <video ref="videoElement" autoplay class="preview-video">
