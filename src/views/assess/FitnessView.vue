@@ -10,10 +10,10 @@
                     <div id="box1">
                         <video ref="videoElement" autoplay class="preview-video">
                         </video>
-                        <img ref="outputElement" v-if="isCameraOn" class="preview-video" />
+                        <!-- 显示最新的图像帧 -->
+                        <img ref="outputElement" v-if="isCameraOn" class="preview-frame" />
                         <canvas ref="canvasElement" style="display: none;"></canvas>
                     </div>
-
                 </div>
 
                 <div class="btnBox">
@@ -33,9 +33,6 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
 import { io } from 'socket.io-client';
-import { useAuthStore } from '@/stores/auth';
-
-const authStore = useAuthStore();
 
 const videoElement = ref<HTMLVideoElement | null>(null);
 const canvasElement = ref<HTMLCanvasElement | null>(null);
@@ -59,12 +56,21 @@ onMounted(() => {
     });
 
     // 接收处理后的图像
-    socket.on('response', (data: ArrayBuffer) => {
+    socket.on('response', (data: { status: string, frames: ArrayBuffer[] }) => {
         console.log('response');
 
-        if (outputElement.value) {
-            const blob = new Blob([data], { type: 'image/jpeg' });
-            outputElement.value.src = URL.createObjectURL(blob);
+        if (data.status === "success" && data.frames.length > 0) {
+            // 将 ArrayBuffer 转换为 Base64 字符串
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                if (outputElement.value) {
+                    outputElement.value.src = reader.result as string;
+                }
+            };
+
+            // 假设我们只显示最新的一帧
+            const latestFrame = new Blob([data.frames[0]], { type: 'image/jpeg' });
+            reader.readAsDataURL(latestFrame);
         }
     });
 });
@@ -103,9 +109,9 @@ const stopCamera = () => {
         if (videoElement.value) {
             videoElement.value.srcObject = null;
         }
-        // 关闭摄像头时隐藏 img
         isCameraOn.value = false;
     }
+    if (socket) socket.disconnect();
 };
 
 const captureFrame = () => {
@@ -138,7 +144,6 @@ const startCapture = () => {
     // 定时捕获并发送帧
     captureInterval = setInterval(captureFrame, 1000 / 15); // 15 FPS
 };
-
 </script>
 
 <style scoped>

@@ -106,6 +106,7 @@ const stopCamera = () => {
         // 关闭摄像头时隐藏 img
         isCameraOn.value = false;
     }
+    if (socket) socket.disconnect();
 };
 
 const captureFrame = () => {
